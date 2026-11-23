@@ -1,0 +1,345 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex, nofollow"><title>نعيش سيوة سوا</title><link rel="icon" href="img/logo_h.png"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<style>
+@font-face{font-family:"HONOR";src:url("fonts/honor-l.ttf") format("truetype");font-weight:300;font-display:swap}
+@font-face{font-family:"HONOR";src:url("fonts/honor-m.ttf") format("truetype");font-weight:400 500;font-display:swap}
+@font-face{font-family:"HONOR";src:url("fonts/honor-db.ttf") format("truetype");font-weight:600 800;font-display:swap}
+/* layout: long scroll of numbered "stations" (like the booth tour), rail on the right in RTL; photo + beige panel pairs as in the vision deck */
+:root{
+  --bg:#F6F3EE; --panel:#EEE9E2; --card:#FFFFFF; --ink:#26211C; --muted:#6B6158; --line:rgba(38,33,28,.13);
+  --green:#1F4A3E; --terra:#B5573A; --sun:#DB8027; --teal:#4D828E; --clay:#8D4923; --sand:#D4AE80; --gold:#A36C2E;
+  --onc:#FFFFFF; --onc-soft:#F1EADF;
+  --f:"HONOR",Tahoma,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15120F;--panel:#211C17;--card:#2A241E;--ink:#F1EADF;--muted:#B8AA98;--line:rgba(241,234,223,.14);--green:#3E7B69;--terra:#D9785A;--teal:#6FA5B1;--clay:#B8693F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15120F;--panel:#211C17;--card:#2A241E;--ink:#F1EADF;--muted:#B8AA98;--line:rgba(241,234,223,.14);--green:#3E7B69;--terra:#D9785A;--teal:#6FA5B1;--clay:#B8693F;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);direction:rtl;font-size:16px;line-height:1.75}
+h1,h2,h3{font-weight:300;line-height:1.2;margin:0;text-wrap:balance}
+p{margin:0}
+button{font-family:var(--f);cursor:pointer}
+:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{height:34px;width:auto}
+.brand span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--onc)}
+/* hero */
+.hero{position:relative;min-height:520px;display:grid;align-items:end;overflow:hidden;background:#2b2b2b}
+.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,16,12,.72),rgba(20,16,12,.05) 60%)}
+.hero .wrap{position:relative;padding-block:48px;color:#fff;display:grid;gap:16px;width:100%}
+.hero h1{font-size:clamp(44px,8vw,92px);font-weight:300}
+.hero .sub{font-size:clamp(17px,2.2vw,22px);max-width:640px;color:#F3ECE2}
+.hero .marks{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.hero .marks img{height:46px;width:auto}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:8px 14px;min-width:110px}
+.stat b{display:block;font-weight:600;font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat small{font-size:12px;color:#EDE4D7}
+/* layout with rail */
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;padding-block:28px}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 74px);align-self:start;display:flex;flex-direction:column;gap:6px}
+nav.rail a{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px;font-size:14px}
+nav.rail a .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:var(--onc);font-size:13px;flex:none}
+nav.rail a[aria-current="true"]{border-color:var(--sun)} nav.rail a[aria-current="true"] .n{background:var(--sun)}
+main{min-width:0;display:flex;flex-direction:column;gap:64px}
+section{scroll-margin-top:84px;display:flex;flex-direction:column;gap:20px}
+.eyebrow{color:var(--terra);font-weight:600;font-size:14px;letter-spacing:.02em}
+section h2{font-size:clamp(30px,4vw,44px);color:var(--ink)}
+.lead{font-size:18px;color:var(--muted);max-width:68ch}
+.pair{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:14px;align-items:stretch}
+.pair img{width:100%;height:100%;object-fit:cover;border-radius:4px;min-height:280px}
+.pair .pane{background:var(--panel);padding:28px;display:flex;flex-direction:column;gap:14px;justify-content:center;border-radius:4px}
+.pane .big{font-size:24px;font-weight:300;color:var(--terra);line-height:1.5}
+.grid{display:grid;gap:12px}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.el img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.el p{font-size:15px;margin-top:6px;text-align:center}
+/* tracks */
+.track{color:var(--onc);border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:6px;text-align:right;border:0}
+.track small{color:var(--onc-soft);font-size:13px}
+.track b{font-size:24px;font-weight:600;line-height:1.2}
+.track .ct{margin-top:auto;font-size:13px;font-weight:600}
+.track[aria-expanded="true"]{outline:3px solid var(--sun);outline-offset:2px}
+.progs{display:grid;gap:10px}
+.prog{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;gap:4px}
+.prog .h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.prog .id{font-weight:600;font-size:14px}
+.prog .nm{font-weight:600;font-size:18px}
+.prog .sb{color:var(--muted);font-size:14px}
+.prog .cnt{margin-inline-start:auto;color:var(--terra);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums}
+.prog .meta{font-size:14px;color:var(--muted)}
+/* year */
+.journey .st{border-radius:6px;padding:16px;color:var(--onc)}
+.journey .st small{color:var(--onc-soft)} .journey .st b{display:block;font-size:30px;font-weight:600}
+.months{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px}
+.mo{border:0;border-radius:6px;padding:10px 6px;color:var(--onc);text-align:center;display:grid;gap:2px;min-width:0}
+.mo small{font-size:12px;color:var(--onc-soft)} .mo b{font-size:13px;font-weight:600;line-height:1.3} .mo i{font-style:normal;font-size:12px}
+.mo[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px}
+.mcard h3{font-size:36px}
+.mcard dt{font-weight:600;font-size:14px;margin-top:10px} .mcard dd{margin:0;color:var(--muted)}
+.evlist{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.evlist li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.evlist .d{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.evlist .s{display:block;color:var(--muted);font-size:13px}
+.tag{display:inline-block;font-size:12px;border-radius:999px;padding:0 8px;margin-inline-start:6px;border:1px solid var(--line);color:var(--muted)}
+.tag.mv{color:var(--terra);border-color:var(--terra)} .tag.ms{color:var(--gold);border-color:var(--gold)}
+/* sectors */
+.secbar{display:flex;flex-wrap:wrap;gap:8px}
+.sechead{background:var(--panel);border-radius:8px;padding:18px 20px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.sechead h3{font-size:28px}
+.sechead .num{text-align:center} .sechead .num b{display:block;font-size:44px;font-weight:600;color:var(--terra);line-height:1;font-variant-numeric:tabular-nums}
+.dots{display:flex;gap:4px;margin-top:6px}.dots span{width:12px;height:12px;border-radius:50%;background:var(--line)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th{background:var(--green);color:var(--onc);font-weight:600;text-align:right;padding:9px 12px;position:sticky;top:0}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+td.d{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--muted)}
+td .pl{display:block;color:var(--muted);font-size:13px}
+.filter{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+select{font-family:var(--f);font-size:14px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+/* coordination */
+.box{border-radius:8px;padding:18px;color:var(--onc);display:grid;gap:6px;align-content:start}
+.box b{font-size:19px;font-weight:600} .box p{color:var(--onc-soft);font-size:15px}
+.frame{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.frame ul{margin:0;padding-inline-start:18px;color:var(--onc-soft);font-size:15px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:s}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:center}
+.steps li::before{counter-increment:s;content:counter(s,arabic-indic);font-size:28px;font-weight:600;color:var(--terra);text-align:center}
+.steps b{display:block}.steps span{color:var(--muted);font-size:14px}
+footer{background:var(--green);color:var(--onc);margin-top:40px}
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer img{height:40px;width:auto}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 58px);z-index:6;flex-direction:row;overflow-x:auto;background:var(--bg);padding-block:6px;margin-inline:-4px}
+  nav.rail a{flex:none} nav.rail a .t{white-space:nowrap}
+  .pair,.mcard{grid-template-columns:minmax(0,1fr)} .pair img{min-height:200px;max-height:260px}
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))} .g3{grid-template-columns:minmax(0,1fr)}
+  .months{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .frame{grid-template-columns:minmax(0,1fr)}
+  .brand span{display:none}
+  .evlist li{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){.g2{grid-template-columns:minmax(0,1fr)} .months{grid-template-columns:repeat(4,minmax(0,1fr))} .hero{min-height:460px}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brand"><img src="img/logo_h.png" alt="سيوة ٢٠٢٧"><span>سيوة عاصمة الثقافة في العالم الإسلامي ٢٠٢٧ · دليل القطاعات</span></div>
+  <a class="chip" href="#sectors" style="text-decoration:none">ملف قطاعك</a>
+</div></header>
+
+<div class="hero">
+  <img class="bg" src="img/hero.jpg" alt="بحيرة الملح في سيوة من فوق">
+  <div class="veil"></div>
+  <div class="wrap">
+    <div class="marks"><img src="img/logo_h_cream.png" alt="شعار سيوة ٢٠٢٧"><img src="img/ministry_white.png" alt="وزارة الثقافة المصرية" style="height:38px"></div>
+    <h1>نعيش سيوة سوا</h1>
+    <p class="sub">سنة كاملة بتفتح فيها سيوة بابها لمصر وللعالم الإسلامي. هنا كل اللي فكرنا فيه: الرؤية، والبرنامج، والسنة يوم بيوم، والمطلوب من كل قطاع.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</div>
+
+<div class="wrap layout">
+<nav class="rail" id="rail" aria-label="أقسام الموقع"></nav>
+<main>
+
+<section id="vision" data-t="الرؤية">
+  <div class="eyebrow">الرؤية</div>
+  <h2>سيوة.. فرصة للتعارف والمشاركة</h2>
+  <div class="pair"><img src="img/cave.jpg" alt="الواحة من جوه كهف">
+    <div class="pane"><p>الاحتفال بسيوة عاصمةً للثقافة في العالم الإسلامي فرصة للتعريف بثقافتها، <b>وإشراك أهلها في تقديم حكاياتهم وفنونهم ومعارفهم لجمهور أوسع.</b></p>
+    <p class="big">عام يفتح أبواب سيوة للتبادل الثقافي، ويؤسس لتعاون يستمر أثره بعد ٢٠٢٧.</p></div></div>
+  <h3 style="font-size:26px">سيوة.. ثقافة يعيشها أهلها</h3>
+  <p class="lead">إزاي نخلّي الناس يعيشوا حاجة من ثقافة سيوة، بمشاركة أهلها؟ من التفاصيل دي اتبنت المسارات الأربعة.</p>
+  <div class="grid g4">
+    <div class="el"><img src="img/kids.jpg" alt="أطفال سيوة"><p>الحكايات واللغة والذاكرة الشفوية</p></div>
+    <div class="el"><img src="img/pottery.jpg" alt="فخار وسلال"><p>الحرف ومهارات الصنع والزخارف</p></div>
+    <div class="el"><img src="img/castle.jpg" alt="قلعة شالي"><p>العمارة والخامات والطبيعة</p></div>
+    <div class="el"><img src="img/woman.jpg" alt="سيدة من سيوة"><p>الفنون والعادات والمعارف المتوارثة</p></div>
+  </div>
+</section>
+
+<section id="idea" data-t="الفكرة">
+  <div class="eyebrow">الفكرة</div>
+  <h2>نعيش سيوة سوا</h2>
+  <div class="pair"><img src="img/evening.jpg" alt="سهرة في سيوة">
+    <div class="pane"><p>دعوة تجمع أهل سيوة وباقي مصر وشعوب العالم الإسلامي <b>سوا</b> في تجربة ثقافية مشتركة، نتعرّف فيها على سيوة، و<b>نعيش</b> حكاياتهم وثقافتهم.</p>
+    <p><b>«سوا»</b> يعني أهل سيوة معانا بثقافتهم وصوتهم ومشاركتهم، وإننا بنلتقي على اختلاف بلادنا.</p>
+    <p><b>«نعيش»</b> يعني التجربة تبقى جزء من ذاكرتنا: نحملها معانا، ونحكي عنها، ونحب نرجع لها.</p></div></div>
+  <div class="pair"><img src="img/reflection.jpg" alt="انعكاس النخل في المية">
+    <div class="pane"><h3 style="font-size:26px">سيوة.. حضور يستمر بعد ٢٠٢٧</h3>
+    <p>نطمح أن يكون ٢٠٢٧ بداية علاقة ممتدة لمصر مع الدول الإسلامية، بوابتها سيوة: نعيش التجربة داخل الواحة وفي أنحاء مصر، ويفتح العام فرص لأهل سيوة يعرضوا فنونهم ويعلّموا مهاراتهم ويسوّقوا منتجاتهم.</p>
+    <p class="big">نجاح العام: إن سيوة تفضل حاضرة بعد ٢٠٢٧، كوجهة نفتكرها ونحب نزورها ونرجع لها.</p></div></div>
+</section>
+
+<section id="tracks" data-t="المسارات">
+  <div class="eyebrow">من المقترحات إلى برنامج واحد</div>
+  <h2>حكاية واحدة.. أربع مسارات</h2>
+  <p class="lead" id="tracksLead"></p>
+  <div class="grid g4" id="trackBtns"></div>
+  <button class="track" id="trackX" type="button" aria-expanded="false" style="background:var(--gold)"></button>
+  <div class="progs" id="progs" aria-live="polite"></div>
+</section>
+
+<section id="year" data-t="السنة">
+  <div class="eyebrow">السنة يوم بيوم</div>
+  <h2>السنة رحلة.. مش قائمة فعاليات</h2>
+  <p class="lead">أربع مراحل بتوصّل المواطن من إنه يسمع عن سيوة، لحد ما يعيشها معانا في آخر السنة.</p>
+  <div class="grid g4 journey">
+    <div class="st" style="background:#A68C68"><small>يناير – فبراير · قبل البداية</small><b>يسمع</b><p>نعلن العام في معرض الكتاب ونفتح الدعوة.</p></div>
+    <div class="st" style="background:var(--teal)"><small>مارس – مايو · نتعرّف</small><b>يعرف</b><p>الافتتاح والمكان والحكي: يتعرف على سيوة وأهلها.</p></div>
+    <div class="st" style="background:var(--sun)"><small>يونيو – سبتمبر · نجرّب</small><b>يجرّب</b><p>الحرف والصيف والسما والحصاد: يجرّب بإيده.</p></div>
+    <div class="st" style="background:var(--green)"><small>أكتوبر – ديسمبر · نتعارف</small><b>يعيش</b><p>عيد الصلح والضيوف والختام: يعيش سيوة سوا.</p></div>
+  </div>
+  <h3 style="font-size:26px">١٢ شهر.. ١٢ حكاية</h3>
+  <p class="lead">اسم كل شهر جاي من مناسبة حقيقية في سيوة أو في السنة. اختار شهر وشوف ليه اسمه كده، والمواطن هيكسب إيه، وكل فعالياته.</p>
+  <div class="months" id="months" role="group" aria-label="شهور ٢٠٢٧"></div>
+  <article class="mcard" id="mcard" aria-live="polite"></article>
+</section>
+
+<section id="sectors" data-t="القطاعات">
+  <div class="eyebrow">ملف كل قطاع</div>
+  <h2>المطلوب من كل قطاع</h2>
+  <p class="lead">اختار قطاعك: هتلاقي فعالياته بمواعيدها وأماكنها، والبرامج اللي بيشارك فيها، والناقص اللي محتاج رد منه.</p>
+  <div class="secbar" id="secbar" role="group" aria-label="القطاعات"></div>
+  <div class="sechead" id="sechead"></div>
+  <div class="filter"><label for="mfilter">الشهر</label><select id="mfilter"></select><span id="fcount"></span></div>
+  <div class="tablewrap"><table><thead><tr><th>الميعاد</th><th>الفعالية والمكان</th><th>البرنامج</th></tr></thead><tbody id="sectbody"></tbody></table></div>
+  <div class="prog" id="secCommit"></div>
+</section>
+
+<section id="together" data-t="إزاي هنشتغل">
+  <div class="eyebrow">إزاي هنشتغل سوا</div>
+  <h2>كلنا شركاء في البرنامج</h2>
+  <p class="lead">كل قطاع صاحب فعالياته، والقطاعات اللي بتشتغل في نفس البرنامج شركاء متساويين، والتنسيق في لجنة واحدة وغرفة واحدة في سيوة.</p>
+  <div class="grid g3">
+    <div class="box" style="background:var(--green)"><b>كل قطاع صاحب فعالياته</b><p>بيخطط وينفّذ فعالياته، وهو المرجع في موعدها ومكانها ومحتواها.</p></div>
+    <div class="box" style="background:var(--teal)"><b>فريق لكل برنامج</b><p>القطاعات اللي عندها فعاليات في نفس البرنامج بتتنسق كأطراف متساوية، واجتماع البرنامج بيستضيفه القطاع اللي فعاليته قرّبت.</p></div>
+    <div class="box" style="background:var(--clay)"><b>لجنة تنسيق موحدة</b><p>ممثل من كل قطاع ومعاهم الإعلام والسياحة. اجتماع شهري بيراجع الشهر الجاي قبلها بـ ٣٠ يوم، وأي تغيير في الجدول بيعدّي عليها.</p></div>
+    <div class="box" style="background:#B8641F"><b>غرفة التنسيق الميداني في سيوة</b><p>في بيت ثقافة سيوة: الأماكن والتصاريح، والتواصل مع الأهالي والفرق المحلية، واستقبال فرق القطاعات.</p></div>
+    <div class="box" style="background:#3D3D3D"><b>الافتتاح والختام</b><p>تنفذهم الهيئة العامة لقصور الثقافة بمشاركة كل القطاعات، وكل قطاع ليه فقرة أو معرض في الحفلين.</p></div>
+    <div class="box" style="background:#6A3519"><b>الإعلام والسياحة</b><p>دور جامع للسنة كلها: بيحكوا ويروّجوا فعاليات كل القطاعات، من غير فعاليات خاصة بيهم.</p></div>
+  </div>
+  <h3 style="font-size:26px">صوتنا سوا.. الإطار اللي بيحيط بالسنة</h3>
+  <div class="frame">
+    <div class="box" style="background:var(--green)"><b>اللجنة الإعلامية</b><ul><li>المؤتمر الصحفي لإطلاق العام في معرض الكتاب</li><li>الهوية الإعلامية «نعيش سيوة سوا»</li><li>تغطية فعاليات العام والحملات الشهرية</li><li>رحلة صحفيين وصنّاع محتوى من الدول الإسلامية</li><li>إعلان عناصر الإرث في الختام</li></ul></div>
+    <div class="box" style="background:var(--terra)"><b>الهيئة المصرية العامة للتنشيط السياحي</b><ul><li>الترويج السياحي والمحتوى التعريفي بسيوة</li><li>تسهيلات المشاركين والضيوف عبر مكاتب الهيئة</li><li>إدراج الفعاليات في برامج شركات السياحة</li><li>حملة لسيوة في يوم السياحة العالمي ٢٧ سبتمبر</li></ul></div>
+  </div>
+</section>
+
+<section id="next" data-t="الخطوات">
+  <div class="eyebrow">الخطوة الجاية</div>
+  <h2>نبدأ من النهارده</h2>
+  <ol class="steps">
+    <li><div><b>استلام ملف القطاع والبوكليت</b><span>فيه برامجكم وجدولكم والناقص والالتزامات.</span></div></li>
+    <li><div><b>مراجعة الخانات الصفرا</b><span>اليوم والمكان المقترحين: أوافق أو أعدّل.</span></div></li>
+    <li><div><b>تسمية ممثل للقطاع</b><span>في لجنة التنسيق الموحدة، ونقطة اتصال واحدة.</span></div></li>
+    <li><div><b>رجوع الملف خلال أسبوعين</b><span>نجمع الردود ونطلع الجدول النهائي المعتمد.</span></div></li>
+    <li><div><b>العرض على الوزير</b><span>بعد موافقة القطاعات: البرنامج والجدول للاعتماد، وبعده الإعلان للجمهور.</span></div></li>
+  </ol>
+</section>
+</main>
+</div>
+<footer><div class="wrap"><img src="img/logo_h_cream.png" alt="سيوة ٢٠٢٧"><span>وزارة الثقافة المصرية · سيوة عاصمة الثقافة في العالم الإسلامي ٢٠٢٧</span></div></footer>
+
+<script>
+const DATA = {"ev":[{"s":"S","p":"C3","t":"C","n":"سمبوزيوم أسوان الدولي للنحت – «يوم سيوة»","a":"2027-01-03","b":"2027-01-03","m":1,"pl":"أسوان – موقع الملتقى السنوي للصندوق","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"other"},{"s":"N","p":"X3","t":"X","n":"ندوة «سيوة عبر العصور»","a":"2027-01-10","b":"2027-01-10","m":1,"pl":"مقر اللجنة الوطنية لليونسكو – القاهرة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"K","p":"A5","t":"A","n":"جناح سيوة في معرض القاهرة الدولي للكتاب – الدورة ٥٨ وفعاليات التعريف بسيوة","a":"2027-01-20","b":"2027-02-02","m":1,"pl":"مركز مصر للمعارض الدولية – التجمع الخامس","miss":"","mv":false,"ep":null,"loc":"cairo"},{"s":"K","p":"A5","t":"A","n":"الحقيبة الترويجية لسيوة ٢٠٢٧ في المعارض الدولية (مطوية – مواد مرئية – رابط رقمي)","a":"2027-01-20","b":"2027-12-31","m":1,"pl":"المعارض الدولية","miss":"اليوم + الشهر","mv":false,"ep":null,"loc":"intl"},{"s":"T","p":"C1","t":"C","n":"ندوة كتاب «سيوة.. حدوتة عمرانية»","a":"2027-01-24","b":"2027-01-24","m":1,"pl":"قاعة الندوات الرئيسية – معرض القاهرة للكتاب","miss":"المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"S","p":"A1","t":"A","n":"أمسية عن التراث غير المادي السيوي بمعرض الكتاب","a":"2027-01-28","b":"2027-01-28","m":1,"pl":"قاعة الندوات الرئيسية – معرض القاهرة للكتاب","miss":"المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"P","p":"D4","t":"D","n":"عرض فني ديني (مثل «الليلة المحمدية»)","a":"2027-02-11","b":"2027-02-11","m":2,"pl":"مسرح الجمهورية","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"K","p":"A3","t":"A","n":"إصدار/ندوة – اللغة السيوية","a":"2027-02-21","b":"2027-02-21","m":2,"pl":"قاعة صلاح عبد الصبور – هيئة الكتاب","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"P","p":"D1","t":"D","n":"حفل موسيقى عربية وإنشاد ديني","a":"2027-03-04","b":"2027-03-04","m":3,"pl":"مسرح الجمهورية","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"S","p":"C3","t":"C","n":"سمبوزيوم سيوة للتصوير (٢٠–٣٠ فنانًا) – الانطلاق قبل الافتتاح بـ١٠ أيام","a":"2027-03-15","b":"2027-03-24","m":3,"pl":"مواقع الواحة: شالي، جبل الدكرور، معبد آمون، بحيرة سيوة","miss":"المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"Q","p":"X1","t":"X","n":"حفل افتتاح فعاليات سيوة عاصمة الثقافة في العالم الإسلامي ٢٠٢٧","a":"2027-03-25","b":"2027-03-25","m":3,"pl":"ساحة قلعة شالي – سيوة","miss":"المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"Q","p":"A1","t":"A","n":"أرشيف سيوة الرقمي","a":"2027-03-25","b":"2027-12-18","m":3,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + الشهر + المكان","mv":false,"ep":null,"loc":"online"},{"s":"Q","p":"A2","t":"A","n":"مشروع السرد الثقافي","a":"2027-03-25","b":"2027-12-18","m":3,"pl":"سيوة","miss":"اليوم + الشهر + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"S","p":"C3","t":"C","n":"معرض مخرجات سمبوزيوم سيوة ضمن حفل الافتتاح","a":"2027-03-25","b":"2027-04-07","m":3,"pl":"متحف البيت السيوي التقليدي","miss":"المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"Q","p":"C3","t":"C","n":"ملتقى سيوة للفنون التشكيلية","a":"2027-03-26","b":"2027-04-01","m":3,"pl":"مرسم سيوة – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"P","p":"D2","t":"D","n":"عرض فنون شعبية تراثية (١)","a":"2027-04-01","b":"2027-04-01","m":4,"pl":"مسرح البالون – العجوزة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-04-01","b":"2027-04-01","m":4,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[1,9],"loc":"siwa"},{"s":"Q","p":"C3","t":"C","n":"معرض نتاج ملتقيات سيوة السابقة (مراسم سيوة)","a":"2027-04-03","b":"2027-04-16","m":4,"pl":"مرسم سيوة – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"N","p":"C1","t":"C","n":"ندوة «العمارة السيوية المستدامة» والتراث المعماري والفنون الإسلامية","a":"2027-04-04","b":"2027-04-04","m":4,"pl":"مقر اللجنة الوطنية لليونسكو – القاهرة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-04-08","b":"2027-04-08","m":4,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[1,9],"loc":"siwa"},{"s":"Q","p":"X2","t":"X","n":"قافلة ثقافية (١)","a":"2027-04-10","b":"2027-04-14","m":4,"pl":"قرى الواحة: أغورمي، المراقي، أبو شروف، الزيتون، ثم قصر ثقافة مطروح","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"other"},{"s":"S","p":"C1","t":"C","n":"ندوة عن كتاب سيوة إصدار التنسيق الحضاري","a":"2027-04-11","b":"2027-04-11","m":4,"pl":"مركز الفسطاط","miss":"اليوم","mv":false,"ep":null,"loc":"cairo"},{"s":"N","p":"X3","t":"X","n":"ندوة أونلاين: سيوة لمدارس اليونسكو","a":"2027-04-13","b":"2027-04-13","m":4,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":[1,8],"loc":"online"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-04-16","b":"2027-04-16","m":4,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[1,9],"loc":"siwa"},{"s":"K","p":"C1","t":"C","n":"إصدار/ندوة – العمارة الطينية في سيوة","a":"2027-04-18","b":"2027-04-18","m":4,"pl":"قاعة صلاح عبد الصبور – هيئة الكتاب","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"T","p":"C2","t":"C","n":"افتتاح مشروع سيوة النموذجي للإحياء العمراني (سوق وميدان شالي)","a":"2027-04-18","b":"2027-04-18","m":4,"pl":"ساحة قلعة شالي – سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"T","p":"C1","t":"C","n":"برنامج «هوية سيوة العمرانية» – ندوات وورش «من الاشتراطات إلى التطبيق»","a":"2027-04-18","b":"2027-04-22","m":4,"pl":"قاعات بيت ثقافة سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"S","p":"C3","t":"C","n":"معرض مخرجات سمبوزيوم سيوة","a":"2027-04-24","b":"2027-05-07","m":4,"pl":"مركز الفسطاط","miss":"اليوم","mv":false,"ep":null,"loc":"cairo"},{"s":"T","p":"C1","t":"C","n":"ندوة العمارة التقليدية في سيوة","a":"2027-04-27","b":"2027-04-27","m":4,"pl":"مركز الهناجر للفنون","miss":"اليوم","mv":true,"ep":null,"loc":"cairo"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-05-06","b":"2027-05-06","m":5,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[2,9],"loc":"siwa"},{"s":"S","p":"A1","t":"A","n":"تدريب وحلقة نقاشية عن إحياء التراث غير المادي – خبراء بيت التراث","a":"2027-05-09","b":"2027-05-13","m":5,"pl":"قاعات بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"N","p":"X3","t":"X","n":"ندوة أونلاين: سيوة لمدارس اليونسكو","a":"2027-05-11","b":"2027-05-11","m":5,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":[2,8],"loc":"online"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-05-13","b":"2027-05-13","m":5,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[2,9],"loc":"siwa"},{"s":"P","p":"D1","t":"D","n":"حفل موسيقى عربية وإنشاد ديني (٢)","a":"2027-05-20","b":"2027-05-20","m":5,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-05-21","b":"2027-05-21","m":5,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[2,9],"loc":"siwa"},{"s":"Q","p":"A1","t":"A","n":"برنامج الجمع والتوثيق الميداني ودليل المأثورات السيوية","a":"2027-05-23","b":"2027-05-27","m":5,"pl":"قاعات بيت ثقافة سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"K","p":"A1","t":"A","n":"إصدار/ندوة – الأدب الشفاهي السيوي","a":"2027-05-30","b":"2027-05-30","m":5,"pl":"قاعة صلاح عبد الصبور – هيئة الكتاب","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"N","p":"B1","t":"B","n":"ندوة «الصناعات الإبداعية والعادات والتقاليد السيوية»","a":"2027-06-01","b":"2027-06-01","m":6,"pl":"مقر اللجنة الوطنية لليونسكو – القاهرة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-06-03","b":"2027-06-03","m":6,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[3,9],"loc":"siwa"},{"s":"F","p":"B1","t":"B","n":"معرض «من الحرفة إلى الفن» (مع قصور الثقافة)","a":"2027-06-05","b":"2027-06-18","m":6,"pl":"قصر الفنون – أرض الأوبرا","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"Q","p":"B1","t":"B","n":"ملتقى المرأة والتراث والاقتصاد الإبداعي والمعرض الحرفي «سيوية»","a":"2027-06-05","b":"2027-06-08","m":6,"pl":"بيت ثقافة سيوة + ساحة شالي","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"N","p":"X3","t":"X","n":"ندوة أونلاين: سيوة لمدارس اليونسكو","a":"2027-06-08","b":"2027-06-08","m":6,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":[3,8],"loc":"online"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-06-10","b":"2027-06-10","m":6,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[3,9],"loc":"siwa"},{"s":"Q","p":"B1","t":"B","n":"ملتقى الأزياء «استلهامات التراث المعاصر»","a":"2027-06-12","b":"2027-06-15","m":6,"pl":"بيت ثقافة سيوة + ساحة شالي","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"S","p":"A3","t":"A","n":"أنشطة للأطفال عن سيوة ومميزاتها","a":"2027-06-12","b":"2027-06-12","m":6,"pl":"بيت العيني وبيت المعمار","miss":"اليوم","mv":false,"ep":[1,7],"loc":"cairo"},{"s":"S","p":"A4","t":"A","n":"عرض أراجوز «حدوتة سيوة» (مرجعه كتاب سيوة)","a":"2027-06-17","b":"2027-06-17","m":6,"pl":"بيت السحيمي","miss":"اليوم","mv":false,"ep":[1,7],"loc":"cairo"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-06-18","b":"2027-06-18","m":6,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[3,9],"loc":"siwa"},{"s":"K","p":"B2","t":"B","n":"إصدار/ندوة – الحرف التقليدية في سيوة","a":"2027-06-20","b":"2027-06-20","m":6,"pl":"قاعة صلاح عبد الصبور – هيئة الكتاب","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"S","p":"B2","t":"B","n":"ورشة الحرف اليدوية السيوية ومعرضها","a":"2027-06-20","b":"2027-06-24","m":6,"pl":"مركز الفسطاط","miss":"اليوم","mv":true,"ep":null,"loc":"cairo"},{"s":"Q","p":"B1","t":"B","n":"ورش الأزياء السيوية والخوص وسعف النخيل والحلي التراثية (٣ ورش)","a":"2027-06-27","b":"2027-07-01","m":6,"pl":"قاعات بيت ثقافة سيوة","miss":"اليوم + الشهر + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"P","p":"D2","t":"D","n":"عرض فنون شعبية تراثية (٢)","a":"2027-07-01","b":"2027-07-01","m":7,"pl":"مسرح البالون – العجوزة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-07-01","b":"2027-07-01","m":7,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[4,9],"loc":"siwa"},{"s":"Q","p":"D5","t":"D","n":"حفل افتتاح سينما الشعب بسيوة","a":"2027-07-01","b":"2027-07-01","m":7,"pl":"سينما بيت ثقافة سيوة","miss":"اليوم","mv":true,"ep":null,"loc":"siwa"},{"s":"O","p":"D3","t":"D","n":"معرض فني عن الفنون في سيوة (الآلات الموسيقية التراثية والحرف اليدوية)","a":"2027-07-03","b":"2027-07-16","m":7,"pl":"إحدى قاعات المعارض بدار الأوبرا المصرية","miss":"الموعد (القطاع لم يحدد شهرًا)","mv":false,"ep":null,"loc":"cairo"},{"s":"Q","p":"D6","t":"D","n":"برنامج «مصر جميلة ومواهبنا مستقبلنا» لاكتشاف المواهب","a":"2027-07-04","b":"2027-07-08","m":7,"pl":"قاعات بيت ثقافة سيوة","miss":"اليوم + الشهر + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"S","p":"A4","t":"A","n":"رحلة تعريفية وتدريب عن الأراجوز – مشروع صون الأراجوز مع اليونسكو","a":"2027-07-04","b":"2027-07-08","m":7,"pl":"قاعات بيت ثقافة سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-07-08","b":"2027-07-08","m":7,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[4,9],"loc":"siwa"},{"s":"S","p":"A3","t":"A","n":"أنشطة للأطفال عن سيوة ومميزاتها","a":"2027-07-10","b":"2027-07-10","m":7,"pl":"بيت العيني وبيت المعمار","miss":"اليوم","mv":false,"ep":[2,7],"loc":"cairo"},{"s":"Q","p":"D5","t":"D","n":"ورشة تعليم فنون السينما (تصوير)","a":"2027-07-11","b":"2027-07-15","m":7,"pl":"سينما الشعب – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"N","p":"X3","t":"X","n":"ندوة أونلاين: سيوة لمدارس اليونسكو","a":"2027-07-13","b":"2027-07-13","m":7,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":[4,8],"loc":"online"},{"s":"O","p":"D3","t":"D","n":"حفل فني لإحدى فرق سيوة للفنون الشعبية والفلكلور","a":"2027-07-15","b":"2027-07-15","m":7,"pl":"مسرح الجمهورية – القاهرة","miss":"اسم الفرقة + الموعد (حفل واحد يُختار بين مارس وديسمبر)","mv":false,"ep":null,"loc":"cairo"},{"s":"S","p":"A4","t":"A","n":"عرض أراجوز «حدوتة سيوة» (مرجعه كتاب سيوة)","a":"2027-07-15","b":"2027-07-15","m":7,"pl":"بيت السحيمي","miss":"اليوم","mv":false,"ep":[2,7],"loc":"cairo"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-07-16","b":"2027-07-16","m":7,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[4,9],"loc":"siwa"},{"s":"Q","p":"X2","t":"X","n":"قافلة ثقافية (٢)","a":"2027-07-17","b":"2027-07-21","m":7,"pl":"قرى الواحة: أغورمي، المراقي، أبو شروف، الزيتون، ثم قصر ثقافة مطروح","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"other"},{"s":"Q","p":"D5","t":"D","n":"ورشة تعليم فنون السينما (سيناريو)","a":"2027-07-18","b":"2027-07-22","m":7,"pl":"سينما الشعب – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"Q","p":"D5","t":"D","n":"ورشة تعليم فنون السينما (إخراج)","a":"2027-07-25","b":"2027-07-29","m":7,"pl":"سينما الشعب – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"F","p":"C4","t":"C","n":"أطلس سيوة البصري – إقامة كبار المصورين (١٠ أيام)","a":"2027-07-29","b":"2027-08-07","m":7,"pl":"مواقع الواحة: شالي، جبل الدكرور، معبد آمون، بحيرة سيوة","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"S","p":"C1","t":"C","n":"ندوة د. فاتن صلاح عن سيوة تاريخيًا ومعماريًا بمناسبة الكسوف","a":"2027-08-01","b":"2027-08-01","m":8,"pl":"قصر الأمير طاز","miss":"","mv":false,"ep":null,"loc":"cairo"},{"s":"T","p":"C4","t":"C","n":"مسابقة التصوير الفوتوغرافي للعمارة التقليدية (فتح باب الاشتراك حتى نهاية سبتمبر)","a":"2027-08-02","b":"2027-09-30","m":8,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"online"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-08-05","b":"2027-08-05","m":8,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[5,9],"loc":"siwa"},{"s":"N","p":"X3","t":"X","n":"ندوة أونلاين: سيوة لمدارس اليونسكو","a":"2027-08-10","b":"2027-08-10","m":8,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":[5,8],"loc":"online"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-08-12","b":"2027-08-12","m":8,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[5,9],"loc":"siwa"},{"s":"Q","p":"D1","t":"D","n":"ملتقى الإنشاد الديني بمشاركة فرق الهيئة","a":"2027-08-13","b":"2027-08-15","m":8,"pl":"بيت ثقافة سيوة + ساحة شالي","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"P","p":"D4","t":"D","n":"عرض فني ديني (٢)","a":"2027-08-14","b":"2027-08-14","m":8,"pl":"مسرح الجمهورية","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"S","p":"A3","t":"A","n":"أنشطة للأطفال عن سيوة ومميزاتها","a":"2027-08-14","b":"2027-08-14","m":8,"pl":"بيت العيني وبيت المعمار","miss":"اليوم","mv":false,"ep":[3,7],"loc":"cairo"},{"s":"S","p":"A4","t":"A","n":"عرض أراجوز «حدوتة سيوة» (مرجعه كتاب سيوة)","a":"2027-08-19","b":"2027-08-19","m":8,"pl":"بيت السحيمي","miss":"اليوم","mv":false,"ep":[3,7],"loc":"cairo"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-08-20","b":"2027-08-20","m":8,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[5,9],"loc":"siwa"},{"s":"P","p":"D4","t":"D","n":"عرض فني ديني (٣)","a":"2027-08-26","b":"2027-08-26","m":8,"pl":"مسرح الجمهورية","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"P","p":"D2","t":"D","n":"عرض فنون شعبية تراثية (٣)","a":"2027-09-23","b":"2027-09-23","m":9,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-09-02","b":"2027-09-02","m":9,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[6,9],"loc":"siwa"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-09-09","b":"2027-09-09","m":9,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[6,9],"loc":"siwa"},{"s":"S","p":"A3","t":"A","n":"أنشطة للأطفال عن سيوة ومميزاتها","a":"2027-09-11","b":"2027-09-11","m":9,"pl":"بيت العيني وبيت المعمار","miss":"اليوم","mv":false,"ep":[4,7],"loc":"cairo"},{"s":"N","p":"X3","t":"X","n":"ندوة أونلاين: سيوة لمدارس اليونسكو","a":"2027-09-14","b":"2027-09-14","m":9,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":[6,8],"loc":"online"},{"s":"S","p":"A4","t":"A","n":"عرض أراجوز «حدوتة سيوة» (مرجعه كتاب سيوة)","a":"2027-09-16","b":"2027-09-16","m":9,"pl":"بيت السحيمي","miss":"اليوم","mv":false,"ep":[4,7],"loc":"cairo"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-09-17","b":"2027-09-17","m":9,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[6,9],"loc":"siwa"},{"s":"P","p":"D1","t":"D","n":"حفل موسيقى عربية وإنشاد ديني (٣)","a":"2027-10-01","b":"2027-10-01","m":10,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"Q","p":"D5","t":"D","n":"أسبوع السينما التوثيقية للواحات والمجتمعات التراثية","a":"2027-10-02","b":"2027-10-08","m":10,"pl":"سينما الشعب – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-10-07","b":"2027-10-07","m":10,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[7,9],"loc":"siwa"},{"s":"S","p":"A3","t":"A","n":"أنشطة للأطفال عن سيوة ومميزاتها","a":"2027-10-09","b":"2027-10-09","m":10,"pl":"بيت العيني وبيت المعمار","miss":"اليوم","mv":false,"ep":[5,7],"loc":"cairo"},{"s":"N","p":"X3","t":"X","n":"ندوة أونلاين: سيوة لمدارس اليونسكو","a":"2027-10-12","b":"2027-10-12","m":10,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":[7,8],"loc":"online"},{"s":"K","p":"A5","t":"A","n":"معرض الكتاب بسيوة","a":"2027-10-14","b":"2027-10-23","m":10,"pl":"ساحة السوق أمام شالي + مكتبة مصر العامة بسيوة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"O","p":"D1","t":"D","n":"عرض فني لإحدى فرق دار الأوبرا المصرية في سيوة","a":"2027-10-14","b":"2027-10-14","m":10,"pl":"سيوة – ساحة شالي","miss":"اسم الفرقة + الموعد + المكان التفصيلي · المحافظة تتحمل الانتقالات والإقامة وأجر الفرقة","mv":false,"ep":null,"loc":"siwa"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-10-14","b":"2027-10-14","m":10,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[7,9],"loc":"siwa"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-10-15","b":"2027-10-15","m":10,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[7,9],"loc":"siwa"},{"s":"Q","p":"D2","t":"D","n":"ملتقى سيوة لفنون البادية (٤ أيام) و«رمز من رموز الواحة»","a":"2027-10-16","b":"2027-10-19","m":10,"pl":"بيت ثقافة سيوة + ساحة شالي","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"siwa"},{"s":"S","p":"A4","t":"A","n":"عرض أراجوز «حدوتة سيوة» (مرجعه كتاب سيوة)","a":"2027-10-21","b":"2027-10-21","m":10,"pl":"بيت السحيمي","miss":"اليوم","mv":false,"ep":[5,7],"loc":"cairo"},{"s":"Q","p":"D7","t":"D","n":"ملتقى «سيوة عاصمة للثقافة الإسلامية: واحة التراث والتنوع الثقافي والإبداعي» (٣–٤ أيام)","a":"2027-10-23","b":"2027-10-26","m":10,"pl":"بيت ثقافة سيوة + ساحة شالي","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"F","p":"C3","t":"C","n":"معرض «فناني سيوة»","a":"2027-10-30","b":"2027-11-12","m":10,"pl":"قصر الفنون – أرض الأوبرا","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"S","p":"D7","t":"D","n":"صالون نفرتيتي عن سيوة بمناسبة عيد السياحة ومهرجان التمور","a":"2027-10-31","b":"2027-10-31","m":10,"pl":"قصر الأمير طاز","miss":"اليوم","mv":false,"ep":null,"loc":"cairo"},{"s":"P","p":"D4","t":"D","n":"عرض فني ديني (٤) (مثل «قواعد العشق الأربعين»)","a":"2027-11-04","b":"2027-11-04","m":11,"pl":"مسرح الجمهورية","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-11-04","b":"2027-11-04","m":11,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[8,9],"loc":"siwa"},{"s":"S","p":"C3","t":"C","n":"ملتقى القاهرة الدولي للخط العربي – محور عن سيوة","a":"2027-11-06","b":"2027-11-09","m":11,"pl":"مركز الفسطاط للحرف","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"P","p":"D7","t":"D","n":"ندوة الحضارة الإسلامية وعلاقة سيوة بشمال إفريقيا (٣)","a":"2027-11-07","b":"2027-11-07","m":11,"pl":"مركز الهناجر للفنون","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"N","p":"X3","t":"X","n":"ندوة أونلاين: سيوة لمدارس اليونسكو","a":"2027-11-09","b":"2027-11-09","m":11,"pl":"منصة رقمية + صفحات العام","miss":"اليوم + المكان","mv":false,"ep":[8,8],"loc":"online"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-11-11","b":"2027-11-11","m":11,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[8,9],"loc":"siwa"},{"s":"F","p":"C3","t":"C","n":"معرض «سيوة في عيون العالم الإسلامي» (نتاج سمبوزيوم فناني العالم الإسلامي)","a":"2027-11-13","b":"2027-11-26","m":11,"pl":"قصر الفنون – أرض الأوبرا","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"S","p":"A3","t":"A","n":"أنشطة للأطفال عن سيوة ومميزاتها","a":"2027-11-13","b":"2027-11-13","m":11,"pl":"بيت العيني وبيت المعمار","miss":"اليوم","mv":false,"ep":[6,7],"loc":"cairo"},{"s":"P","p":"D7","t":"D","n":"ندوة الحضارة الإسلامية وعلاقة سيوة بشمال إفريقيا (١)","a":"2027-11-14","b":"2027-11-14","m":11,"pl":"مركز الهناجر للفنون","miss":"اليوم + المكان","mv":true,"ep":null,"loc":"cairo"},{"s":"S","p":"A4","t":"A","n":"عرض أراجوز «حدوتة سيوة» (مرجعه كتاب سيوة)","a":"2027-11-18","b":"2027-11-18","m":11,"pl":"بيت السحيمي","miss":"اليوم","mv":false,"ep":[6,7],"loc":"cairo"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-11-19","b":"2027-11-19","m":11,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[8,9],"loc":"siwa"},{"s":"S","p":"C3","t":"C","n":"ملتقى الأقصر الدولي للتصوير – «يوم سيوة»","a":"2027-11-21","b":"2027-11-21","m":11,"pl":"الأقصر – موقع الملتقى السنوي للصندوق","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"other"},{"s":"T","p":"C1","t":"C","n":"ملتقى سيوة الدولي للعمارة التقليدية","a":"2027-11-27","b":"2027-11-30","m":11,"pl":"ساحة شالي + قاعة بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"P","p":"D7","t":"D","n":"ندوة الحضارة الإسلامية وعلاقة سيوة بشمال إفريقيا (٢)","a":"2027-11-28","b":"2027-11-28","m":11,"pl":"مركز الهناجر للفنون","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الموسيقى العربية","a":"2027-12-02","b":"2027-12-02","m":12,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[9,9],"loc":"siwa"},{"s":"S","p":"C3","t":"C","n":"ملتقى الكاريكاتير – محور عن سيوة","a":"2027-12-04","b":"2027-12-07","m":12,"pl":"مركز الفسطاط للحرف","miss":"اليوم + المكان","mv":false,"ep":null,"loc":"cairo"},{"s":"Q","p":"D1","t":"D","n":"عرض فني – الإنشاد الديني","a":"2027-12-09","b":"2027-12-09","m":12,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[9,9],"loc":"siwa"},{"s":"S","p":"A4","t":"A","n":"عرض أراجوز «حدوتة سيوة» (مرجعه كتاب سيوة)","a":"2027-12-09","b":"2027-12-09","m":12,"pl":"بيت السحيمي","miss":"اليوم","mv":false,"ep":[7,7],"loc":"cairo"},{"s":"Q","p":"D2","t":"D","n":"عرض فني – عروض الفرق النوعية","a":"2027-12-10","b":"2027-12-10","m":12,"pl":"المسرح المكشوف – بيت ثقافة سيوة","miss":"اليوم + المكان","mv":false,"ep":[9,9],"loc":"siwa"},{"s":"S","p":"A3","t":"A","n":"أنشطة للأطفال عن سيوة ومميزاتها","a":"2027-12-11","b":"2027-12-11","m":12,"pl":"بيت العيني وبيت المعمار","miss":"اليوم","mv":false,"ep":[7,7],"loc":"cairo"},{"s":"Q","p":"X1","t":"X","n":"حفل ختام فعاليات سيوة عاصمة الثقافة في العالم الإسلامي ٢٠٢٧","a":"2027-12-18","b":"2027-12-18","m":12,"pl":"ساحة قلعة شالي – سيوة","miss":"المكان","mv":false,"ep":null,"loc":"siwa"},{"s":"S","p":"X1","t":"X","n":"المشاركة في حفل الختام: معرض تشكيلي عن سيوة وعرض أراجوز","a":"2027-12-18","b":"2027-12-31","m":12,"pl":"ساحة قلعة شالي – سيوة","miss":"المكان","mv":false,"ep":null,"loc":"siwa"}],"progs":[{"id":"A1","t":"A","n":"ميت حكاية من سيوة","sub":"الأرشيف الحي لذاكرة الواحة","leg":"أرشيف رقمي لذاكرة سيوة، وسلسلة إصدارات تحمل أسماء رواتها.","season":"y"},{"id":"A2","t":"A","n":"نحكي سوا","sub":"مهرجان واحة السرد","leg":"مهرجان سنوي للسرد، وكتّاب من أبناء الواحة ينشرون رواياتهم وأبحاثهم.","season":"a"},{"id":"A3","t":"A","n":"حكاية كتاب","sub":"أطفال سيوة وأصدقاؤهم يتبادلون الحكايات","leg":"كتاب مطبوع ونسخة رقمية بأصوات الأطفال، وشبكة تبادل بين المواقع تستمر بعد ٢٠٢٧.","season":"j"},{"id":"A4","t":"A","n":"الأراجوز في سيوة","sub":"حدوتة يكتبها أطفال الواحة","leg":"عرض أراجوز سيوي قابل للتجوال، ولاعبون من سيوة.","season":"j"},{"id":"A5","t":"A","n":"الكتاب مسافر","sub":"كتب سيوة من الواحة إلى معارض العالم","leg":"سلسلة «مكتبة سيوة»: إصدارات مترجمة ومتاحة للباحثين.","season":"y"},{"id":"B1","t":"B","n":"صنعناها سوا","sub":"الحرفية والمصمم والمصنع","leg":"خط منتجات «صنعناها سوا»، وهدايا رسمية للمؤتمرات والوفود، وبرنامج دائم للحرف.","season":"j"},{"id":"B2","t":"B","n":"أهل الصنعة","sub":"تكريم رموز الواحة ورائداتها","leg":"سجل «أهل الصنعة» ضمن أرشيف سيوة، وتقليد سنوي للتكريم.","season":"a"},{"id":"C1","t":"C","n":"نبني سوا","sub":"ملتقى سيوة الدولي للعمارة التقليدية","leg":"أرشيف عمراني ومعماري لسيوة، ودليل اشتراطات يستخدمه الأهالي والجهات التنفيذية.","season":"t"},{"id":"C2","t":"C","n":"شالي بيتنا","sub":"إحياء سوق وميدان شالي","leg":"نموذج قابل للتطبيق في مشروعات الإحياء المستقبلية، وساحة ثقافية دائمة.","season":"t"},{"id":"C3","t":"C","n":"شوفناها سوا","sub":"ملتقى سيوة الدولي للرسم والتصوير","leg":"مقتنيات فنية جديدة عن سيوة، ومعرض قابل للتجوال.","season":"t"},{"id":"C4","t":"C","n":"أطلس سيوة البصري","sub":"الصورة الفوتوغرافية","leg":"كتاب «أطلس سيوة البصري»، وأرشيف صور مفتوح للباحثين والإعلام.","season":"t"},{"id":"D1","t":"D","n":"نغني سوا","sub":"مهرجان سيوة للموسيقى والإنشاد","leg":"مهرجان سنوي للموسيقى والإنشاد في سيوة.","season":"a"},{"id":"D2","t":"D","n":"ساحة الواحة","sub":"فنون الواحات والبادية","leg":"موسم سنوي لفنون الواحات، وفرق شعبية مدعومة.","season":"a"},{"id":"D3","t":"D","n":"طبلة ومقرونة","sub":"سيوة على مسرح الأوبرا","leg":"تسجيل وتوثيق للآلات والأغاني، وحفل يمكن إعادة تقديمه.","season":"j"},{"id":"D4","t":"D","n":"هنفتح الباب سوا","sub":"عرض مسرحي من حكايات أهل سيوة","leg":"عرض قابل لإعادة التقديم، ومشاركون من سيوة اكتسبوا خبرة مسرحية.","season":"j"},{"id":"D5","t":"D","n":"سينما تحت النخل","sub":"أسبوع سينما الواحات","leg":"أفلام قصيرة من إنتاج شباب الواحة، وقاعة سينما مؤهلة.","season":"a"},{"id":"D6","t":"D","n":"مواهبنا سوا","sub":"مواهب أطفال وشباب سيوة","leg":"برنامج دائم للشباب، ومواهب تقدّم أعمالها على مسارح العام.","season":"j"},{"id":"D7","t":"D","n":"ملتقى الواحة","sub":"سيوة والعالم الإسلامي: حوار المعرفة","leg":"منتدى سنوي للواحات، وأوراق منشورة.","season":"a"},{"id":"X1","t":"X","n":"الباب اتفتح · نتقابل تاني","sub":"الافتتاح والختام","leg":"الإعلان الرسمي لعناصر إرث سيوة ٢٠٢٧.","season":"y"},{"id":"X2","t":"X","n":"سيوية متنقلة","sub":"من سيوة.. ودي حكايتنا سوا","leg":"نموذج تجوال قابل للتكرار كل عام.","season":"j"},{"id":"X3","t":"X","n":"سكة القوافل","sub":"سيوة مع العالم الإسلامي","leg":"شبكة علاقات مع مدن العالم الإسلامي، وزيارات متبادلة بعد ٢٠٢٧.","season":"a"}],"months":[{"m":1,"th":"الدعوة","why":"معرض القاهرة للكتاب أكبر تجمع ثقافي في مصر: شهر الإعلان والدعوة.","gain":"يعرف إن فيه سنة كاملة عن سيوة، ويشوفها لأول مرة في جناح المعرض.","anchor":"معرض القاهرة للكتاب = إعلان العام"},{"m":2,"th":"ليالي سيوة","why":"رمضان (حوالي ٨ فبراير) واليوم الدولي للغة الأم ٢١ فبراير.","gain":"سهرات وإنشاد في رمضان، ويسمع اللغة السيوية.","anchor":"رمضان (٨ فبراير تقريبًا) + اليوم الدولي للغة الأم ٢١ فبراير"},{"m":3,"th":"الباب اتفتح","why":"افتتاح العام في سيوة الخميس ٢٥ مارس.","gain":"بداية رسمية: أول ملتقى ومعرض فني في الواحة.","anchor":"حفل الافتتاح – الخميس ٢٥ مارس (بعد العيد بأسبوعين)"},{"m":4,"th":"بيوتنا سوا","why":"يوم التراث العالمي ١٨ أبريل وافتتاح مشروع شالي.","gain":"يفهم قيمة البيوت الطينية، وابن سيوة يشوف بيته تراث يستاهل يتحافظ عليه.","anchor":"يوم التراث العالمي ١٨ أبريل: افتتاح شالي"},{"m":5,"th":"نحكيها سوا","why":"اليوم العالمي للمتاحف ١٨ مايو وتجمعات عيد الأضحى.","gain":"يسمع حكايات سيوة من أهلها، ونبدأ نجمع ذاكرتها.","anchor":"اليوم العالمي للمتاحف ١٨ مايو + عيد الأضحى"},{"m":6,"th":"صنعناها سوا","why":"بداية الإجازة: الناس فاضية للورش والمعارض.","gain":"يشوف ويشتري ويتعلم الحرف، والحرفية تلاقي سوق ودخل.","anchor":"رأس السنة الهجرية + بداية الإجازة"},{"m":7,"th":"صيف الواحة","why":"الإجازة الصيفية: الأطفال والشباب فاضيين فعلًا.","gain":"صيف للأطفال والشباب: أراجوز وسينما ومواهب، وفرق سيوة على مسرح الجمهورية.","anchor":"الإجازة الصيفية"},{"m":8,"th":"سما سيوة","why":"الكسوف الكلي للشمس ٢ أغسطس، والمولد النبوي.","gain":"حدث نادر في سما سيوة، ومسابقة تصوير وليالي إنشاد.","anchor":"الكسوف الكلي ٢ أغسطس + المولد النبوي ١٥ أغسطس"},{"m":9,"th":"موسم الحصاد","why":"حصاد الزيتون والتمر، ويوم السياحة العالمي ٢٧ سبتمبر.","gain":"يتعرف على منتجات الواحة، وسيوة تبقى وجهة يزورها.","anchor":"حصاد الزيتون والتمر + يوم السياحة العالمي ٢٧ سبتمبر"},{"m":10,"th":"عيد الصلح","why":"عيد السياحة (الصلح) أهم مناسبة عند أهل سيوة نفسهم.","gain":"أكبر لقاء في السنة: عرض الأوبرا وملتقى البادية ومعرض الكتاب في سيوة.","anchor":"عيد السياحة / الصلح (بدر أكتوبر ~١٥ أكتوبر)"},{"m":11,"th":"سيوة والعالم الإسلامي","why":"لقب العام نفسه، وفيه أغلب الملتقيات الدولية.","gain":"يشوف بلده بعيون ضيوف العالم الإسلامي.","anchor":"ملتقى العمارة الدولي + ملتقيات الصندوق السنوية"},{"m":12,"th":"الإرث · نتقابل تاني","why":"الختام ١٨ ديسمبر، اليوم العالمي للغة العربية.","gain":"يفضل معاه أرشيف وأطلس ودليل، وحرف اتسوّقت ومواهب اتدرّبت.","anchor":"الختام ١٨ ديسمبر = اليوم العالمي للغة العربية"}],"tracks":{"A":{"n":"١","name":"نحكيها سوا","detail":"الحكايات واللغة والذاكرة الشفوية","c":"4D828E"},"B":{"n":"٢","name":"صنعناها سوا","detail":"الحرف ومهارات الصنع والزخارف","c":"C9711F"},"C":{"n":"٣","name":"بيوتنا سوا","detail":"العمارة والخامات والطبيعة","c":"8D4923"},"D":{"n":"٤","name":"نغني ونحتفل سوا","detail":"الفنون والعادات والمعارف المتوارثة","c":"1F4A3E"},"X":{"n":"","name":"برامج جامعة","detail":"تعبر المسارات الأربعة وتحمل العام من أوله إلى آخره","c":"A36C2E"}},"N":{"events":121,"singles":72,"episodes":49,"series":6,"programs":21,"ideas":40,"sectors":8,"siwa":59,"cairo":47,"other":15,"moved":28,"need_day":112,"need_place":95,"fixed":9},"seas":{"1":"A68C68","2":"A68C68","3":"4D828E","4":"4D828E","5":"4D828E","6":"C9711F","7":"C9711F","8":"C9711F","9":"C9711F","10":"1F4A3E","11":"1F4A3E","12":"1F4A3E"}};
+const AR = (n) => String(n).replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]);
+const MON = ["", "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+const DAYS = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+const SEC = { Q: "الهيئة العامة لقصور الثقافة", S: "صندوق التنمية الثقافية", T: "الجهاز القومي للتنسيق الحضاري", K: "الهيئة المصرية العامة للكتاب", P: "قطاع المسرح", O: "دار الأوبرا المصرية", F: "قطاع الفنون التشكيلية", N: "اللجنة الوطنية المصرية للتربية والعلوم والثقافة" };
+const SHORT = { Q: "قصور الثقافة", S: "صندوق التنمية", T: "التنسيق الحضاري", K: "هيئة الكتاب", P: "المسرح", O: "الأوبرا", F: "الفنون التشكيلية", N: "اللجنة الوطنية" };
+const ORDER = ["Q", "S", "T", "K", "P", "O", "F", "N"];
+const TCOL = { A: "var(--teal)", B: "var(--sun)", C: "var(--clay)", D: "var(--green)", X: "var(--gold)" };
+const SEAS = (m) => (m <= 2 ? "#A68C68" : m <= 5 ? "var(--teal)" : m <= 9 ? "var(--sun)" : "var(--green)");
+const PROG = Object.fromEntries(DATA.progs.map((p) => [p.id, p]));
+const N = DATA.N;
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pd = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+const dfull = (s) => { const d = pd(s); return `${DAYS[d.getUTCDay()]} ${AR(d.getUTCDate())} ${MON[d.getUTCMonth() + 1]}`; };
+const dshort = (s) => { const d = pd(s); return `${AR(d.getUTCDate())} ${MON[d.getUTCMonth() + 1]}`; };
+const range = (e) => (e.a === e.b ? dfull(e.a) : `${dshort(e.a)} – ${dshort(e.b)}`);
+const tags = (e) => (e.ep ? `<span class="tag">حلقة ${AR(e.ep[0])} من ${AR(e.ep[1])}</span>` : "") + (e.mv ? `<span class="tag mv">★ اتنقلت لشهر يخدمها</span>` : "") + (e.miss ? `<span class="tag ms">▸ ناقص: ${esc(e.miss)}</span>` : "");
+
+// stats
+const ST = [[N.events, "فعالية على مدار العام"], [N.programs, "برنامج موحد"], [N.sectors, "قطاعات بتقدّم الفعاليات"], [N.siwa, "فعالية في سيوة نفسها"], [12, "شهر، لكل شهر حكاية"]];
+document.getElementById("stats").innerHTML = ST.map(([n, l]) => `<div class="stat"><b>${AR(n)}</b><small>${l}</small></div>`).join("");
+
+// rail + current section
+const secs = [...document.querySelectorAll("main section")];
+const rail = document.getElementById("rail");
+rail.innerHTML = secs.map((s, i) => `<a href="#${s.id}" data-id="${s.id}"><span class="n">${AR(i + 1)}</span><span class="t">${s.dataset.t}</span></a>`).join("");
+const io = new IntersectionObserver((ents) => { ents.forEach((en) => { if (en.isIntersecting) rail.querySelectorAll("a").forEach((a) => a.setAttribute("aria-current", a.dataset.id === en.target.id ? "true" : "false")); }); }, { rootMargin: "-40% 0px -55% 0px" });
+secs.forEach((s) => io.observe(s));
+
+// tracks
+document.getElementById("tracksLead").textContent = `القطاعات قدّمت ${AR(N.ideas)} محورًا. جمعناها في ${AR(N.programs)} برنامج تحت أربع مسارات وتلات برامج جامعة، كل برنامج بتشترك فيه القطاعات وليه إرث بيتسلّم في الآخر. دوس على مسار تشوف برامجه.`;
+const tb = document.getElementById("trackBtns");
+const cnt = (pred) => DATA.ev.filter(pred).length;
+tb.innerHTML = "ABCD".split("").map((t) => { const tr = DATA.tracks[t]; const ps = DATA.progs.filter((p) => p.t === t);
+  return `<button class="track" type="button" data-t="${t}" aria-expanded="false" style="background:${TCOL[t]}"><small>المسار ${tr.n}</small><b>${tr.name}</b><small>${tr.detail}</small><span class="ct">${ps.length === 2 ? "برنامجين" : AR(ps.length) + " برامج"} · ${AR(cnt((e) => e.t === t))} فعالية</span></button>`; }).join("");
+const tx = document.getElementById("trackX"); const trx = DATA.tracks.X;
+tx.dataset.t = "X"; tx.innerHTML = `<small>برامج جامعة</small><b>${trx.detail}</b><span class="ct">${DATA.progs.filter((p) => p.t === "X").map((p) => p.n).join(" · ")} · ${AR(cnt((e) => e.t === "X"))} فعالية</span>`;
+function showTrack(t) {
+  document.querySelectorAll(".track").forEach((b) => b.setAttribute("aria-expanded", b.dataset.t === t ? "true" : "false"));
+  document.getElementById("progs").innerHTML = DATA.progs.filter((p) => p.t === t).map((p) => {
+    const ev = DATA.ev.filter((e) => e.p === p.id); const ss = ORDER.filter((s) => ev.some((e) => e.s === s));
+    return `<div class="prog"><div class="h"><span class="id" style="color:${TCOL[t]}">${p.id}</span><span class="nm">${esc(p.n)}</span><span class="sb">${esc(p.sub)}</span><span class="cnt">${AR(ev.length)} فعالية</span></div>
+      <div class="meta"><b>بمشاركة:</b> ${ss.map((s) => SHORT[s]).join("، ")}</div><div class="meta"><b>الإرث:</b> ${esc(p.leg)}</div></div>`; }).join("");
+}
+document.querySelectorAll(".track").forEach((b) => b.addEventListener("click", () => showTrack(b.dataset.t)));
+showTrack("A");
+
+// months
+const mbox = document.getElementById("months");
+mbox.innerHTML = DATA.months.map((m) => `<button class="mo" type="button" data-m="${m.m}" aria-pressed="false" style="background:${SEAS(m.m)}"><small>${MON[m.m]}</small><b>${m.th}</b><i>${AR(cnt((e) => e.m === m.m))}</i></button>`).join("");
+function showMonth(mm) {
+  const m = DATA.months.find((x) => x.m === mm); const ev = DATA.ev.filter((e) => e.m === mm).sort((a, b) => a.a.localeCompare(b.a));
+  mbox.querySelectorAll(".mo").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.m === mm ? "true" : "false"));
+  document.getElementById("mcard").innerHTML = `<div><div class="eyebrow" style="color:${SEAS(mm)}">${MON[mm]} ٢٠٢٧ · ${AR(ev.length)} فعالية</div><h3 style="color:${SEAS(mm)}">${m.th}</h3>
+    <dl><dt>ليه الاسم ده</dt><dd>${esc(m.why)}</dd><dt>المواطن هيكسب إيه</dt><dd>${esc(m.gain)}</dd><dt>المرسى</dt><dd>${esc(m.anchor)}</dd></dl></div>
+    <ul class="evlist">${ev.map((e) => `<li><span class="d">${range(e)}</span><span>${esc(e.n)}${tags(e)}<span class="s">${SHORT[e.s]} · ${e.p} «${esc(PROG[e.p].n)}» · ${esc(e.pl)}</span></span></li>`).join("")}</ul>`;
+}
+mbox.querySelectorAll(".mo").forEach((b) => b.addEventListener("click", () => showMonth(+b.dataset.m)));
+showMonth(3);
+
+// sectors
+const sb = document.getElementById("secbar");
+sb.innerHTML = ORDER.map((s) => `<button class="chip" type="button" data-s="${s}" aria-pressed="false">${SHORT[s]}</button>`).join("");
+const mf = document.getElementById("mfilter");
+let curS = "Q";
+function showSector(s) {
+  curS = s; sb.querySelectorAll(".chip").forEach((b) => b.setAttribute("aria-pressed", b.dataset.s === s ? "true" : "false"));
+  try { localStorage.setItem("siwa-sector", s); } catch (e) {}
+  const ev = DATA.ev.filter((e) => e.s === s); const sg = ev.filter((e) => !e.ep).length; const ms = [...new Set(ev.map((e) => e.m))]; const ps = [...new Set(ev.map((e) => e.p))].sort();
+  document.getElementById("sechead").innerHTML = `<div><h3>${SEC[s]}</h3><p style="color:var(--muted)">بيشارك في ${ps.length === 2 ? "برنامجين" : AR(ps.length) + " " + (ps.length === 1 || ps.length > 10 ? "برنامج" : "برامج")}: ${ps.map((p) => `${p} «${esc(PROG[p].n)}»`).join("، ")}</p>
+    <div class="dots" aria-label="شهور النشاط">${MON.slice(1).map((n, i) => `<span title="${n}" style="${ms.includes(i + 1) ? "background:" + SEAS(i + 1) : ""}"></span>`).join("")}</div></div>
+    <div class="num"><b>${AR(ev.length)}</b><small>فعالية${ev.length > sg ? ` · ${AR(sg)} مستقلة + ${AR(ev.length - sg)} حلقة` : ""}</small></div>`;
+  mf.innerHTML = `<option value="0">كل الشهور</option>` + ms.sort((a, b) => a - b).map((m) => `<option value="${m}">${MON[m]}</option>`).join("");
+  renderSector();
+  const nd = ev.filter((e) => e.miss).length, mv = ev.filter((e) => e.mv).length;
+  document.getElementById("secCommit").innerHTML = `<div class="h"><span class="nm">التزامات القطاع</span></div>
+    <div class="meta">◆ تأكيد أو تعديل الناقص في ${AR(nd)} فعالية (علامة ▸)${mv ? ` · ◆ الموافقة على نقل ${AR(mv)} فعالية (★) أو رجوعها لشهرها` : ""}</div>
+    <div class="meta">◆ ${s === "Q" ? "تنفيذ حفلي الافتتاح والختام بمشاركة كل القطاعات، وتشغيل غرفة التنسيق الميداني في بيت ثقافة سيوة" : "المشاركة بفقرة أو معرض في حفلي الافتتاح والختام"}</div>
+    <div class="meta">◆ إرسال المادة الإعلامية للجنة الإعلامية قبل كل فعالية بتلات أسابيع · تسمية ممثل في لجنة التنسيق الموحدة</div>`;
+}
+function renderSector() {
+  const m = +mf.value; const ev = DATA.ev.filter((e) => e.s === curS && (!m || e.m === m)).sort((a, b) => a.a.localeCompare(b.a));
+  document.getElementById("fcount").textContent = `${AR(ev.length)} فعالية`;
+  document.getElementById("sectbody").innerHTML = ev.map((e) => `<tr><td class="d">${range(e)}</td><td><b>${esc(e.n)}</b>${tags(e)}<span class="pl">${esc(e.pl)}</span></td><td style="color:${TCOL[e.t]};white-space:nowrap">${e.p} · ${esc(PROG[e.p].n)}</td></tr>`).join("");
+}
+mf.addEventListener("change", renderSector);
+sb.querySelectorAll(".chip").forEach((b) => b.addEventListener("click", () => showSector(b.dataset.s)));
+let saved = null; try { saved = localStorage.getItem("siwa-sector"); } catch (e) {}
+showSector(SEC[saved] ? saved : "Q");
+</script>
+
+</body></html>
