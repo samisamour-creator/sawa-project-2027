@@ -292,7 +292,7 @@ function showTrack(t) {
   document.querySelectorAll(".track").forEach((b) => b.setAttribute("aria-expanded", b.dataset.t === t ? "true" : "false"));
   document.getElementById("progs").innerHTML = DATA.progs.filter((p) => p.t === t).map((p) => {
     const ev = DATA.ev.filter((e) => e.p === p.id); const ss = ORDER.filter((s) => ev.some((e) => e.s === s));
-    return `<div class="prog"><div class="h"><span class="id" style="color:${TCOL[t]}">${p.id}</span><span class="nm">${esc(p.n)}</span><span class="sb">${esc(p.sub)}</span><span class="cnt">${AR(ev.length)} فعالية</span></div>
+    return `<div class="prog"><div class="h"><span class="nm">برنامج ${esc(p.n)}</span><span class="sb">${esc(p.sub)}</span><span class="cnt">${AR(ev.length)} فعالية</span></div>
       <div class="meta"><b>بمشاركة:</b> ${ss.map((s) => SHORT[s]).join("، ")}</div><div class="meta"><b>الإرث:</b> ${esc(p.leg)}</div></div>`; }).join("");
 }
 document.querySelectorAll(".track").forEach((b) => b.addEventListener("click", () => showTrack(b.dataset.t)));
@@ -306,7 +306,7 @@ function showMonth(mm) {
   mbox.querySelectorAll(".mo").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.m === mm ? "true" : "false"));
   document.getElementById("mcard").innerHTML = `<div><div class="eyebrow" style="color:${SEAS(mm)}">${MON[mm]} ٢٠٢٧ · ${AR(ev.length)} فعالية</div><h3 style="color:${SEAS(mm)}">${m.th}</h3>
     <dl><dt>ليه الاسم ده</dt><dd>${esc(m.why)}</dd><dt>المواطن هيكسب إيه</dt><dd>${esc(m.gain)}</dd><dt>المرسى</dt><dd>${esc(m.anchor)}</dd></dl></div>
-    <ul class="evlist">${ev.map((e) => `<li><span class="d">${range(e)}</span><span>${esc(e.n)}${tags(e)}<span class="s">${SHORT[e.s]} · ${e.p} «${esc(PROG[e.p].n)}» · ${esc(e.pl)}</span></span></li>`).join("")}</ul>`;
+    <ul class="evlist">${ev.map((e) => `<li><span class="d">${range(e)}</span><span>${esc(e.n)}${tags(e)}<span class="s">${SHORT[e.s]} · برنامج ${esc(PROG[e.p].n)} · ${esc(e.pl)}</span></span></li>`).join("")}</ul>`;
 }
 mbox.querySelectorAll(".mo").forEach((b) => b.addEventListener("click", () => showMonth(+b.dataset.m)));
 showMonth(3);
@@ -320,7 +320,7 @@ function showSector(s) {
   curS = s; sb.querySelectorAll(".chip").forEach((b) => b.setAttribute("aria-pressed", b.dataset.s === s ? "true" : "false"));
   try { localStorage.setItem("siwa-sector", s); } catch (e) {}
   const ev = DATA.ev.filter((e) => e.s === s); const sg = ev.filter((e) => !e.ep).length; const ms = [...new Set(ev.map((e) => e.m))]; const ps = [...new Set(ev.map((e) => e.p))].sort();
-  document.getElementById("sechead").innerHTML = `<div><h3>${SEC[s]}</h3><p style="color:var(--muted)">بيشارك في ${ps.length === 2 ? "برنامجين" : AR(ps.length) + " " + (ps.length === 1 || ps.length > 10 ? "برنامج" : "برامج")}: ${ps.map((p) => `${p} «${esc(PROG[p].n)}»`).join("، ")}</p>
+  document.getElementById("sechead").innerHTML = `<div><h3>${SEC[s]}</h3><p style="color:var(--muted)">بيشارك في ${ps.length === 2 ? "برنامجين" : AR(ps.length) + " " + (ps.length === 1 || ps.length > 10 ? "برنامج" : "برامج")}: ${ps.map((p) => `برنامج ${esc(PROG[p].n)}`).join("، ")}</p>
     <div class="dots" aria-label="شهور النشاط">${MON.slice(1).map((n, i) => `<span title="${n}" style="${ms.includes(i + 1) ? "background:" + SEAS(i + 1) : ""}"></span>`).join("")}</div></div>
     <div class="num"><b>${AR(ev.length)}</b><small>فعالية${ev.length > sg ? ` · ${AR(sg)} مستقلة + ${AR(ev.length - sg)} حلقة` : ""}</small></div>`;
   mf.innerHTML = `<option value="0">كل الشهور</option>` + ms.sort((a, b) => a - b).map((m) => `<option value="${m}">${MON[m]}</option>`).join("");
@@ -334,7 +334,7 @@ function showSector(s) {
 function renderSector() {
   const m = +mf.value; const ev = DATA.ev.filter((e) => e.s === curS && (!m || e.m === m)).sort((a, b) => a.a.localeCompare(b.a));
   document.getElementById("fcount").textContent = `${AR(ev.length)} فعالية`;
-  document.getElementById("sectbody").innerHTML = ev.map((e) => `<tr><td class="d">${range(e)}</td><td><b>${esc(e.n)}</b>${tags(e)}<span class="pl">${esc(e.pl)}</span></td><td style="color:${TCOL[e.t]};white-space:nowrap">${e.p} · ${esc(PROG[e.p].n)}</td></tr>`).join("");
+  document.getElementById("sectbody").innerHTML = ev.map((e) => `<tr><td class="d">${range(e)}</td><td><b>${esc(e.n)}</b>${tags(e)}<span class="pl">${esc(e.pl)}</span></td><td style="color:${TCOL[e.t]};white-space:nowrap">برنامج ${esc(PROG[e.p].n)}</td></tr>`).join("");
 }
 mf.addEventListener("change", renderSector);
 sb.querySelectorAll(".chip").forEach((b) => b.addEventListener("click", () => showSector(b.dataset.s)));
